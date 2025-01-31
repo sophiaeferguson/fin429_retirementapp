@@ -1,10 +1,3 @@
-import streamlit as st
-import numpy as np
-import pandas as pd
-import plotly.express as px
-import matplotlib.pyplot as plt
-import plotly.graph_objects as go
-
 st.set_page_config(page_title = "FIN429 Retirement App")
 
 st.title ("FIN429 Retirement App")
