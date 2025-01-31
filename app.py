@@ -1,3 +1,8 @@
+import streamlit as st
+import numpy as np
+import matplotlib.pyplot as plt
+import plotly.graph_objects as go
+
 st.set_page_config(page_title = "FIN429 Retirement App")
 
 st.title ("FIN429 Retirement App")
@@ -97,67 +102,3 @@ t = st.number_input ("Enter the number of years you are holding the investment f
 
 compound_interest_calc = P*(1+i/n)** (n*t)
 st.write (f"Your return on this investment is: **${compound_interest_calc:,.2f}**")
-
-
-# Section 4: Inflation/Growth Rate Comparasion (takes user inputs of expected inflation rate, growth rate, years to retirement and calculates Future Value with growth rate adjusted for inflation - plots this data)
-st.header("Inflation and Growth Rate Comparison")
-st.subheader("Compare the impact of inflation rates to your financial growth rate over time.")
-
-inflation_rate = st.slider("Select Expected Annual Inflation Rate (%):", min_value=0.0, max_value=10.0, value=2.5, step=0.1)/100
-growth_rate = st.slider("Expected Portfolio Growth:", min_value=0.0, max_value=10.0, value=2.5, step=.01)/100
-years_to_retirement = st.slider("Years until retirement:", min_value=1, max_value=50, value=30, step=1)
-
-# Portfolio Growth Rate (adjusted for inflation)
-yearly_return_rate = growth_rate - inflation_rate
-
-# Array Creation for Expected/Real Savings
-expected_savings = [monthly_savings]
-real_savings = [monthly_savings]
-
-# Monthly Future Value Calculation
-for month in range(1, years_to_retirement*12):
-  expected_savings.append(monthly_savings+expected_savings[-1]*(1 + (growth_rate/12)))
-  real_savings.append(monthly_savings+real_savings[-1]*(1 + (yearly_return_rate/12)))
-  
-# Plotting Inflation Rate and Growth Rate
-plt.figure(figsize=(10, 6))
-plt.plot(expected_savings, label='Expected Savings', color='blue', marker='o')
-plt.plot(real_savings, label='Inflation-Adjusted Savings', color='green', linestyle='--')
-
-plt.title('Impact of Inflation on Savings For Each Month Until Retirement', fontsize=14, fontweight='bold')
-plt.xlabel('Month', fontsize=12)
-plt.ylabel('Amount (USD)', fontsize=12)
-plt.grid(True)
-plt.legend()
-plt.xticks(rotation=45)
-plt.tight_layout()
-plt.show()
-
-st.pyplot(plt)
-
-#Section 5: Loan Repayment Calculator, created by Natalie Simkins. Takes in user inputs for loan principal, interest rate, loan term, and then creates an amortization table based on the information.
-from tabulate import tabulate as tb
-st.header ("Loan Repayment Calculator")
-#Taking user inputs for loan principal, interest rate, and loan term.
-r = st.number_input("Annual Interest Rate (%):", min_value=0.0, step=0.1, value=5.0)/100/12
-PV = st.number_input("Original Loan Principal Amount ($):", min_value=0.0, step=1000.0, value=50000.0)
-N = (st.number_input("Loan Term (years):", min_value=1, step=1, value=5))*12
-#Calculating and displaying the payment per month.
-PMT = r*PV/(1-(1+r)**-N)
-st.write("Assuming a monthly payment of **${:,.2f}**".format(PMT))
-st.write(f"Please see the amortization table below for a detailed breakdown of your loan payment schedule.")
-#Loan Amortization Schedule function. Creates a list and then iterates through and appends values to calculate the remaining loan balance after each payment period.
-def AmortizationSchedule(PV, r, N, PMT):
-    # Creating the list to store the amortization schedule
-    schedule = []
-    beginning_balance = PV
-    #Iterating through until there are no payments left
-    for i in range(1, N+1):
-        interest = beginning_balance * r
-        principal = PMT - interest
-        ending_balance = beginning_balance - principal
-        schedule.append((i, beginning_balance, PMT, interest, principal, ending_balance))
-        beginning_balance = ending_balance
-    return schedule
-#Printing the amortization table
-st.write(tb(AmortizationSchedule(PV, r, N, PMT), headers=['Month', 'Beginning Balance', 'Payment', 'Interest', 'Principal', 'End Balance'], tablefmt='github', floatfmt=",.2f"))
