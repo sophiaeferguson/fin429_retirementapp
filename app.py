@@ -5,7 +5,7 @@ import plotly.graph_objects as go
 
 st.set_page_config(page_title = "FIN429 Retirement App", page_icon="💲")
 
-st.title ("FIN429 Retirement App")
+st.title ("FIN429 Retirement App 💲")
 st.subheader("Plan you retirement savings with expense tracking, loan repayment calculator, investment return calculator, and more!")
 
 # Section 1: Income and Expenses (takes user inputs of basic information such as monthly income and expenses, plots this data into a pie chart)
