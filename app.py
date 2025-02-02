@@ -74,7 +74,7 @@ st.progress(progress)
 if progress == 0 :
     st.warning("You haven't started yet. Time to begin saving!")
 elif progress < 0.3 :
-    st.warning(f"You're at {progress * 100:.2f } %—consider increasing yoursavings rate!" )
+    st.warning(f"You're at {progress * 100:.2f}%—consider increasing your savings rate!")
 elif progress < 0.5 :
     st.info( "You're making progress! Keep going!" )
 elif progress < 1.0 :
