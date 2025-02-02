@@ -111,7 +111,7 @@ inflation_rate = st.slider("Select Expected Annual Inflation Rate (%):", min_val
 growth_rate = st.slider("Expected Portfolio Growth:", min_value=0.0, max_value=10.0, value=2.5, step=.01)/100
 years_to_retirement = st.slider("Years until retirement:", min_value=1, max_value=50, value=30, step=1)
 
-# Portfolio Growth Rate (adjusted for inflation)
+# Growth Rate - adjusted for inflation
 yearly_return_rate = growth_rate - inflation_rate
 
 # Array Creation for Expected/Real Savings
