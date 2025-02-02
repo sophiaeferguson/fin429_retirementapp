@@ -3,7 +3,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import plotly.graph_objects as go
 
-st.set_page_config(page_title = "FIN429 Retirement App")
+st.set_page_config(page_title = "FIN429 Retirement App", page_icon="🧐")
 
 st.title ("FIN429 Retirement App")
 st.subheader("Plan you retirement savings with expense tracking, loan repayment calculator, investment return calculator, and more!")
